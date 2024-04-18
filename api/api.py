@@ -6,4 +6,4 @@ api = '/api/card-scheme/verify/'
 
 @app.route(api, methods=['GET'])
 def verify():
-    pass
+    return "ome"
