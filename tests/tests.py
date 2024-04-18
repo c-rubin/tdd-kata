@@ -16,6 +16,13 @@ class ApiTestCase(unittest.TestCase):
 
         self.assertNotEqual(404, response.status_code)
 
+    def test_api_success(self):
+        api = '/api/card-scheme/verify/'
+        
+        response = self.app.get(api)
+
+        self.assertEqual(200, response.status_code)
+
     def setUp(self):
         self.app = app.test_client(self)
 
