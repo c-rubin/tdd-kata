@@ -20,27 +20,23 @@ class ApiTestCase(unittest.TestCase):
     def test_one(self):
         self.assertTrue(True)
 
-    def test_api_exists(self):
-        
-        
-        response = self.app.get(api+cardNum)
 
+    def test_api_exists(self):
+        response = self.app.get(api+cardNum)
         self.assertNotEqual(404, response.status_code)
 
-    def test_api_success(self):
-        
-        response = self.app.get(api+cardNum)
 
+    def test_api_success(self):
+        response = self.app.get(api+cardNum)
         self.assertEqual(200, response.status_code)
+
 
     def test_response_json(self):
         response = self.app.get(api+cardNum) 
-
         self.assertTrue(isJson(response.text))
 
-    def test_response_json(self):
-        # cardNum = "45717360"
 
+    def test_response_json(self):
         response = self.app.get(api+cardNum)
         responseJson = json.loads(response.text)
 
@@ -53,6 +49,7 @@ class ApiTestCase(unittest.TestCase):
             self.assertEqual("visa", responseJson["scheme"])
             self.assertEqual("debit", responseJson["type"])
             self.assertEqual("Jyske Bank A/S", responseJson["bank"])
+
 
     def setUp(self):
         self.app = app.test_client(self)
