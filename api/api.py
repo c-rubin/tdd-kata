@@ -6,7 +6,8 @@ from auxiliary import BinListMocker
 
 app = Flask(__name__)
 
-api = '/api/card-scheme/verify/'
+api1 = '/api/card-scheme/verify/'
+api2 = '/api/card-scheme/stats'
 
 def getResponseData(cardNum):
     response = BinListMocker.getData(cardNum)
@@ -17,7 +18,7 @@ def getResponseData(cardNum):
     
 
 
-@app.route(api+"<cardNum>", methods=['GET'])
+@app.route(api1+"<cardNum>", methods=['GET'])
 def verify(cardNum):
     response = getResponseData(cardNum)
     if response!=None:        
@@ -29,3 +30,7 @@ def verify(cardNum):
         return {"success":True, "payload": payload}
 
     return {"success":False}
+
+@app.route(api2+"<cardNum>", methods=["GET"])
+def stats(cardNum):
+    return ""
