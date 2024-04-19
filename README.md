@@ -13,3 +13,6 @@ made new test to check if api is successfuly responding (http code = 200)
 successfuly passed above test <br><br>
 
 in the next test, I will actually check if the response is a valid json
+
+made the test pass <br><br>
+
