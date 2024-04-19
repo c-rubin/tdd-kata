@@ -37,6 +37,21 @@ class ApiTestCase(unittest.TestCase):
 
         self.assertTrue(isJson(response.text))
 
+    def test_response_json(self):
+        cardNum = "45717360"
+
+        response = self.app.get(api+cardNum)
+        responseJson = json.loads(response.text)
+
+        self.assertTrue(responseJson["success"])
+
+        responseJson = responseJson["payload"]
+
+        #testing data according to binlist.net
+        self.assertEqual("Visa", responseJson["scheme"])
+        self.assertEqual("Debit", responseJson["type"])
+        self.assertEqual("Jyske Bank A/S", responseJson["bank"])
+
     def setUp(self):
         self.app = app.test_client(self)
 

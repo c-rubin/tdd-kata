@@ -16,3 +16,5 @@ in the next test, I will actually check if the response is a valid json
 
 made the test pass <br><br>
 
+now, I will actually test the contents of the json. I will use `https://binlist.net/` for assigning values.
+
