@@ -22,3 +22,9 @@ It seems that the BinList has a limit of 5 requests/hour, so I made a mock class
 
 made the test pass (also updated some of the previous tests) <br><br>
 
+## Step 2
+
+For this step I created a new test file
+
+Now I will repeat some of the tests that I did in the previous test file (which I'm not commenting) and will change the code so that it passes the tests
+
