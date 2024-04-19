@@ -31,6 +31,8 @@ def verify(cardNum):
 
     return {"success":False}
 
+
+
 @app.route(api2+"<cardNum>", methods=["GET"])
 def stats(cardNum):
-    return ""
+    return "{}"
