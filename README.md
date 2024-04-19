@@ -18,3 +18,7 @@ made the test pass <br><br>
 
 now, I will actually test the contents of the json. I will use `https://binlist.net/` for assigning values.
 
+It seems that the BinList has a limit of 5 requests/hour, so I made a mock class for it and also separated the data gathering logic away from api.py
+
+made the test pass (also updated some of the previous tests) <br><br>
+

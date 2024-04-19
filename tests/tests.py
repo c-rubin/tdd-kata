@@ -2,12 +2,12 @@ import unittest
 
 #import the api file
 import sys
-sys.path.append('../datatellers')
-from api.api import app
+sys.path.append('../datatellers/api')
+from api import app
 
 import json
 
-api = '/api/card-scheme/verify/'
+api = '/api/card-scheme/verify/45717360'
 
 def isJson(string):
         try:
@@ -38,9 +38,9 @@ class ApiTestCase(unittest.TestCase):
         self.assertTrue(isJson(response.text))
 
     def test_response_json(self):
-        cardNum = "45717360"
+        # cardNum = "45717360"
 
-        response = self.app.get(api+cardNum)
+        response = self.app.get(api)#+cardNum)
         responseJson = json.loads(response.text)
 
         self.assertTrue(responseJson["success"])
@@ -48,8 +48,8 @@ class ApiTestCase(unittest.TestCase):
         responseJson = responseJson["payload"]
 
         #testing data according to binlist.net
-        self.assertEqual("Visa", responseJson["scheme"])
-        self.assertEqual("Debit", responseJson["type"])
+        self.assertEqual("visa", responseJson["scheme"])
+        self.assertEqual("debit", responseJson["type"])
         self.assertEqual("Jyske Bank A/S", responseJson["bank"])
 
     def setUp(self):
