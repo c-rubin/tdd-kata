@@ -38,3 +38,14 @@ Fortunately the online calculator proved to be correct and the test passed <br><
 
 Finally, the last part of this step is to store the information on a file. I will be using serialization for this, so that data is saved even after stopping the program. However, this would require to change previous tests as well after changing the code to pass this current test.
 
+Actually it didn't require changes for previous tests because I used a mock (which I deleted afterwards) <br><br>
+
+## Containerization
+
+Lastly, I created a dockerfile, where I execute the tests (which execute the apis)
+
+To run it, open terminal in current directory and run these commands
+
+`docker build -t <name> .`
+
+`docker run <name>`
