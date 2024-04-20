@@ -1,8 +1,8 @@
-from flask import Flask
+from flask import Flask, request
 
 import json
 
-from auxiliary import BinListMocker
+from auxiliary import BinListMocker, CardCounterMock
 
 app = Flask(__name__)
 
@@ -16,12 +16,18 @@ def getResponseData(cardNum):
     except ValueError:
         return None
     
+def getCheckedCards(start, limit):
+    return CardCounterMock.getCardsChecked(start, limit)
+
+def checkedCard(cardNum):
+    CardCounterMock.checkedCard(cardNum)
 
 
 @app.route(api1+"<cardNum>", methods=['GET'])
 def verify(cardNum):
     response = getResponseData(cardNum)
-    if response!=None:        
+    if response!=None:
+        checkedCard(cardNum)        
         payload = {}
         payload["scheme"] = response["scheme"]
         payload["type"] = response["type"]
@@ -35,4 +41,7 @@ def verify(cardNum):
 
 @app.route(api2, methods=["GET"])
 def stats():
-    return "{}"
+    if len(request.args)==0: return {"success":False}
+    args = request.args
+    payload = getCheckedCards( int(args.get("start")), int(args.get("limit")))
+    return {"success":True, "start":int(args.get("start")), "limit":int(args.get("limit")), "payload":payload}

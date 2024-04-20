@@ -32,7 +32,7 @@ class ApiTestCase(unittest.TestCase):
 
     def test_json_attributes(self):
         #first, simulate request
-        self.app.get('/api/card-scheme/verify/'+"45717361")
+        self.app.get('/api/card-scheme/verify/'+"45717360")
 
         #now, check json
         start = 1
@@ -49,8 +49,8 @@ class ApiTestCase(unittest.TestCase):
 
             #I will test the payload size later
 
-            self.assetTrue(isinstance(responseJson["payload"], dict))
-            self.assertEqual(responseJson["payload"], {"45717361":1})#theres only 1 card tested so far
+            self.assertTrue(isinstance(responseJson["payload"], dict))
+            self.assertEqual(responseJson["payload"], {"45717360":1})#theres only 1 card tested so far
 
 
     def setUp(self):

@@ -15,3 +15,20 @@ class BinListMocker:
     def getRealData(bin):
         response = requests.get(BinListMocker.api)
         return response.text
+    
+class CardCounterMock:
+    mock = True
+    cardsChecked = {}
+
+    def checkedCard(cardNum):
+        if cardNum in CardCounterMock.cardsChecked: CardCounterMock.cardsChecked[cardNum]+=1
+        else: CardCounterMock.cardsChecked[cardNum] = 1
+
+    def getCardsChecked(start, limit):
+        i=1
+        response = {}
+        for x in CardCounterMock.cardsChecked:
+            if i>limit: break
+            if i<start: continue
+            response[x] = CardCounterMock.cardsChecked[x]
+        return response
