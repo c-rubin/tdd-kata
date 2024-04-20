@@ -22,6 +22,11 @@ def getCheckedCards(start, limit):
 def checkedCard(cardNum):
     CardCounterMock.checkedCard(cardNum)
 
+def getPayloadSize(payload):
+    jsonString = json.dumps(payload)
+    byteJson = jsonString.encode("utf-8")
+    return len(byteJson)
+
 
 @app.route(api1+"<cardNum>", methods=['GET'])
 def verify(cardNum):
@@ -44,4 +49,4 @@ def stats():
     if len(request.args)==0: return {"success":False}
     args = request.args
     payload = getCheckedCards( int(args.get("start")), int(args.get("limit")))
-    return {"success":True, "start":int(args.get("start")), "limit":int(args.get("limit")), "payload":payload}
+    return {"success":True, "start":int(args.get("start")), "limit":int(args.get("limit")),"size":getPayloadSize(payload), "payload":payload}
