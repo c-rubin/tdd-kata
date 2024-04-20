@@ -35,3 +35,6 @@ Now I will check for multiple requests made <br><br>
 Now I will calculate the payload size. I checked the size of the previous test's payload online and it was 45B. Hopefully this is correct, so I set it as checking value.
 
 Fortunately the online calculator proved to be correct and the test passed <br><br>
+
+Finally, the last part of this step is to store the information on a file. I will be using serialization for this, so that data is saved even after stopping the program. However, this would require to change previous tests as well after changing the code to pass this current test.
+

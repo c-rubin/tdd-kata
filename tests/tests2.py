@@ -15,7 +15,7 @@ def isJson(string):
     except ValueError: return False
 
 
-class ApiTestCase(unittest.TestCase):
+class Api2TestCase(unittest.TestCase):
     def test_api_exists(self):
         response = self.app.get(api)
         self.assertNotEqual(404, response.status_code)
@@ -99,6 +99,25 @@ class ApiTestCase(unittest.TestCase):
 
             self.assertEqual(45,responseJson["size"])
 
+
+    #named aaa so that it runs first
+    def test_aaa_serialization(self):
+        #now, check json
+        start = 1
+        limit = 3
+        
+        response = self.app.get(api+f'?start={start}&limit={limit}')
+        responseJson = json.loads(response.text)
+
+        self.assertTrue(isinstance(responseJson["success"], bool))
+
+        if responseJson["success"]:
+            self.assertEqual(start, responseJson["start"])
+            self.assertEqual(limit, responseJson["limit"])
+            self.assertEqual(45,responseJson["size"])
+            self.assertTrue(isinstance(responseJson["payload"], dict))
+            testPayload = {"45717360":2, "45717361":1, "45717362":1}
+            self.assertEqual(responseJson["payload"], testPayload)
 
 
     def setUp(self):
