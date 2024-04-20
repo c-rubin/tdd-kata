@@ -53,6 +53,34 @@ class ApiTestCase(unittest.TestCase):
             self.assertEqual(responseJson["payload"], {"45717360":1})#theres only 1 card tested so far
 
 
+    def test_multiple_calls(self):
+        #first, simulate request
+        self.app.get('/api/card-scheme/verify/'+"45717360")
+        self.app.get('/api/card-scheme/verify/'+"45717361")
+        self.app.get('/api/card-scheme/verify/'+"45717362")
+        self.app.get('/api/card-scheme/verify/'+"45717363")
+
+        #now, check json
+        start = 1
+        limit = 3
+        
+        response = self.app.get(api+f'?start={start}&limit={limit}')
+        responseJson = json.loads(response.text)
+
+        self.assertTrue(isinstance(responseJson["success"], bool))
+
+        if responseJson["success"]:
+            self.assertEqual(start, responseJson["start"])
+            self.assertEqual(limit, responseJson["limit"])
+
+            #I will test the payload size later
+
+            self.assertTrue(isinstance(responseJson["payload"], dict))
+            testPayload = {"45717360":2, "45717361":1, "45717362":1}
+            self.assertEqual(responseJson["payload"], testPayload)#Note that the first call was called 1 more time before
+
+
+
     def setUp(self):
         self.app = app.test_client(self)
 

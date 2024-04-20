@@ -28,5 +28,6 @@ For this step I created a new test file
 
 Now I will repeat some of the tests that I did in the previous test file (which I'm not commenting) and will change the code so that it passes the tests <br><br>
 
-finally, at the json attributes test, I will check that the json is returned as wanted
+finally, at the json attributes test, I will check that the json is returned as wanted <br><br>
 
+Now I will check for multiple requests made
