@@ -31,3 +31,5 @@ Now I will repeat some of the tests that I did in the previous test file (which 
 finally, at the json attributes test, I will check that the json is returned as wanted <br><br>
 
 Now I will check for multiple requests made
+
+Now I will calculate the payload size. I checked the size of the previous test's payload online and it was 45B. Hopefully this is correct, so I set it as checking value

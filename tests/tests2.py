@@ -80,6 +80,26 @@ class ApiTestCase(unittest.TestCase):
             self.assertEqual(responseJson["payload"], testPayload)#Note that the first call was called 1 more time before
 
 
+    def test_payload_size(self):
+        #there are already multiple requests made, so I'll call the api directly
+        start = 1
+        limit = 3
+        
+        response = self.app.get(api+f'?start={start}&limit={limit}')
+        responseJson = json.loads(response.text)
+
+        self.assertTrue(isinstance(responseJson["success"], bool))
+
+        if responseJson["success"]:
+            self.assertEqual(start, responseJson["start"])
+            self.assertEqual(limit, responseJson["limit"])
+
+            #according to a site I checked, this payload {'45717360': 2, '45717361': 1, '45717362': 1}
+            #must have a size of 45B
+
+            self.assertEqual(45,responseJson["size"])
+
+
 
     def setUp(self):
         self.app = app.test_client(self)
