@@ -17,17 +17,17 @@ def isJson(string):
 
 class ApiTestCase(unittest.TestCase):
     def test_api_exists(self):
-        response = self.app.get(api+"45717360")
+        response = self.app.get(api)
         self.assertNotEqual(404, response.status_code)
 
 
     def test_api_success(self):
-        response = self.app.get(api+"45717360")
+        response = self.app.get(api)
         self.assertEqual(200, response.status_code)
 
 
     def test_response_json(self):
-        response = self.app.get(api+"45717360")
+        response = self.app.get(api)
         self.assertTrue(isJson(response.text))
 
 

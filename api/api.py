@@ -33,6 +33,6 @@ def verify(cardNum):
 
 
 
-@app.route(api2+"<cardNum>", methods=["GET"])
-def stats(cardNum):
+@app.route(api2, methods=["GET"])
+def stats():
     return "{}"
