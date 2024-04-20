@@ -26,5 +26,7 @@ made the test pass (also updated some of the previous tests) <br><br>
 
 For this step I created a new test file
 
-Now I will repeat some of the tests that I did in the previous test file (which I'm not commenting) and will change the code so that it passes the tests
+Now I will repeat some of the tests that I did in the previous test file (which I'm not commenting) and will change the code so that it passes the tests <br><br>
+
+finally, at the json attributes test, I will check that the json is returned as wanted
 

@@ -30,6 +30,28 @@ class ApiTestCase(unittest.TestCase):
         response = self.app.get(api)
         self.assertTrue(isJson(response.text))
 
+    def test_json_attributes(self):
+        #first, simulate request
+        self.app.get('/api/card-scheme/verify/'+"45717361")
+
+        #now, check json
+        start = 1
+        limit = 1
+        
+        response = self.app.get(api+f'?start={start}&limit={limit}')
+        responseJson = json.loads(response.text)
+
+        self.assertTrue(isinstance(responseJson["success"], bool))
+
+        if responseJson["success"]:
+            self.assertEqual(start, responseJson["start"])
+            self.assertEqual(limit, responseJson["limit"])
+
+            #I will test the payload size later
+
+            self.assetTrue(isinstance(responseJson["payload"], dict))
+            self.assertEqual(responseJson["payload"], {"45717361":1})#theres only 1 card tested so far
+
 
     def setUp(self):
         self.app = app.test_client(self)
