@@ -12,7 +12,7 @@ api2 = '/api/card-scheme/stats'
 def getResponseData(cardNum):
     response = BinListMocker.getData(cardNum)
     try:
-        return json.loads(response)
+        return response
     except ValueError:
         return None
     
