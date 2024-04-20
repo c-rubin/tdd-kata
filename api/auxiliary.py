@@ -1,4 +1,6 @@
 import requests
+import os
+import pickle
 
 class BinListMocker:
     bin = ['45717360','45717361','45717362','45717363','45717364'] #all these BINs have the same response from https://lookup.binlist.net/
@@ -19,12 +21,30 @@ class BinListMocker:
 class CardCounterMock:
     mock = True
     cardsChecked = {}
+    cardsCheckedFile = './api/cardsChecked.pkl'
+
+    def readFile():
+        if os.path.exists(CardCounterMock.cardsCheckedFile):
+            with open(CardCounterMock.cardsCheckedFile, 'rb') as f:
+                CardCounterMock.cardsChecked = pickle.load(f)
+                f.close()
+        else: CardCounterMock.cardsChecked = {}
+
+    def writeFile():
+        with open(CardCounterMock.cardsCheckedFile, 'wb') as f:
+            pickle.dump(CardCounterMock.cardsChecked, f)
+            f.close()
+            
 
     def checkedCard(cardNum):
+        CardCounterMock.readFile()
         if cardNum in CardCounterMock.cardsChecked: CardCounterMock.cardsChecked[cardNum]+=1
         else: CardCounterMock.cardsChecked[cardNum] = 1
 
+        CardCounterMock.writeFile()
+
     def getCardsChecked(start, limit):
+        CardCounterMock.readFile()
         i=1
         response = {}
         for x in CardCounterMock.cardsChecked:
@@ -33,3 +53,5 @@ class CardCounterMock:
             response[x] = CardCounterMock.cardsChecked[x]
             i+=1
         return response
+    
+    def resetMock(): CardCounterMock.cardsChecked = {}

@@ -6,7 +6,16 @@ from api import app
 
 import json
 
+import pickle
+
 api = '/api/card-scheme/stats'
+
+cardsCheckedFile = "./api/cardsChecked.pkl"
+
+def writeFile(cardsChecked):
+        with open(cardsCheckedFile, 'wb') as f:
+            pickle.dump(cardsChecked, f)
+            f.close()
 
 def isJson(string):
     try:
@@ -102,6 +111,9 @@ class Api2TestCase(unittest.TestCase):
 
     #named aaa so that it runs first
     def test_aaa_serialization(self):
+        #first, create a mock file which shall be read by the api
+        testPayload = {"45717360":2, "45717361":1, "45717362":1}
+        writeFile(testPayload)
         #now, check json
         start = 1
         limit = 3
@@ -116,8 +128,35 @@ class Api2TestCase(unittest.TestCase):
             self.assertEqual(limit, responseJson["limit"])
             self.assertEqual(45,responseJson["size"])
             self.assertTrue(isinstance(responseJson["payload"], dict))
-            testPayload = {"45717360":2, "45717361":1, "45717362":1}
             self.assertEqual(responseJson["payload"], testPayload)
+
+
+        #Lets try some more calls and test again
+        self.app.get('/api/card-scheme/verify/'+"45717360")
+        self.app.get('/api/card-scheme/verify/'+"45717361")
+        self.app.get('/api/card-scheme/verify/'+"45717362")
+        self.app.get('/api/card-scheme/verify/'+"45717363")
+        #testPayload = {"45717360":2+1=3, "45717361":1+1=2, "45717362":1+1=2}
+        testPayload = {"45717360":3, "45717361":2, "45717362":2}
+
+        #now, check json again
+        start = 1
+        limit = 3
+        
+        response = self.app.get(api+f'?start={start}&limit={limit}')
+        responseJson = json.loads(response.text)
+
+        self.assertTrue(isinstance(responseJson["success"], bool))
+
+        if responseJson["success"]:
+            self.assertEqual(start, responseJson["start"])
+            self.assertEqual(limit, responseJson["limit"])
+            self.assertEqual(45,responseJson["size"])
+            self.assertTrue(isinstance(responseJson["payload"], dict))
+            self.assertEqual(responseJson["payload"], testPayload)
+
+        #finally, set mock to empty (thus its not mock anymore, but serves as real memory)
+        writeFile({})
 
 
     def setUp(self):
