@@ -50,3 +50,7 @@ def stats():
     args = request.args
     payload = getCheckedCards( int(args.get("start")), int(args.get("limit")))
     return {"success":True, "start":int(args.get("start")), "limit":int(args.get("limit")),"size":getPayloadSize(payload), "payload":payload}
+
+#to run : http://0.0.0.0:5000//api/card-scheme/verify/45717360
+if __name__ == "__main__":
+    app.run(host='0.0.0.0',port=5000)

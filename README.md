@@ -48,4 +48,22 @@ To run it, open terminal in current directory and run these commands
 
 `docker build -t <name> .`
 
-`docker run <name>`
+`docker run -p 5000:5000 <name>`
+
+First, the tests will be run, afterwards the APIs, which can be accessed through
+
+`http://localhost:5000//api/card-scheme/verify/<cardNum>>`
+
+
+
+`http://localhost:5000//api/card-scheme/stats?start=<num>&limit=<num>`
+
+<br>
+
+Example:
+
+`http://localhost:5000//api/card-scheme/verify/45717361`
+
+
+
+`http://localhost:5000//api/card-scheme/stats?start=1&limit=1`

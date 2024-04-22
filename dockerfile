@@ -6,4 +6,6 @@ COPY . /datatellers/
 
 RUN pip install -r requirements.txt
 
-CMD ["sh", "-c", "python ./tests/tests.py && python ./tests/tests2.py"] #run both tests
+EXPOSE 5000
+
+CMD ["sh", "-c", "python ./tests/tests.py && python ./tests/tests2.py && python ./api/api.py"] #run both tests and then run API

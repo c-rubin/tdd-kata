@@ -8,6 +8,8 @@ import json
 
 import pickle
 
+import os
+
 api = '/api/card-scheme/stats'
 
 cardsCheckedFile = "./api/cardsChecked.pkl"
@@ -16,6 +18,10 @@ def writeFile(cardsChecked):
         with open(cardsCheckedFile, 'wb') as f:
             pickle.dump(cardsChecked, f)
             f.close()
+
+def deleteFile():
+    if os.path.exists(cardsCheckedFile):
+        os.remove(cardsCheckedFile)
 
 def isJson(string):
     try:
@@ -157,6 +163,9 @@ class Api2TestCase(unittest.TestCase):
 
         #finally, set mock to empty (thus its not mock anymore, but serves as real memory)
         writeFile({})
+
+    def tearDownClass():
+        deleteFile()
 
 
     def setUp(self):
